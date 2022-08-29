@@ -49,19 +49,6 @@ def create_app(test_config=None):
     Create an endpoint to handle GET requests
     for all available categories.
     """
-    # @app.route("/categories")
-    # def retrive_categories():
-    #     categories = Category.query.order_by(Category.type).all()
-
-    #     if len(categories) == 0:
-    #         abort(404)
-
-    #     return jsonify(
-    #         {
-    #             'success': True,
-    #             "categories": {category.id: category.type for category in categories}
-    #         }
-    #     )
 
     @app.route("/categories")
     def retrive_categories():
@@ -112,7 +99,7 @@ def create_app(test_config=None):
             {
                 "success": True,
                 "questions": current_questions,
-                "total_questions": len(selection),
+                "total_questions": len(Question.query.all()),
                 "categories": body
             }
         )
@@ -183,7 +170,6 @@ def create_app(test_config=None):
                     "created": question.id,
                     "questions": current_questions,
                     "total_questions": len(Question.query.all())
-                    # "total_questions": len(selection)
                 }
             )
 
@@ -216,7 +202,6 @@ def create_app(test_config=None):
                 "success": True,
                 "Questions": current_questions,
                 "total_questions": len(Question.query.all())
-                # "total_questions": len(questions)
             })
         else:
             abort(404)
@@ -243,7 +228,6 @@ def create_app(test_config=None):
                     "success": True,
                     "questions": current_questions,
                     "total_questions": len(Question.query.all()),
-                    # "total_questions": len(question_category),
                     "current_category": category.type
                 }
             )
